@@ -24,32 +24,18 @@ def get_distance(la1, lo1, la2, lo2):
     a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
     c = 2 * atan2(sqrt(a), sqrt(1 - a))
 
-    distance = R * c
-    return distance
+    return R * c
 
 
 def get_gpx_features(filename):
 
-    # Parsing an existing file:
-    # -------------------------
-
-    # gpx_file = open('../data/GPX/bangtail-divide-imba-epic.gpx', 'r')
-    # gpx_file = open('../data/GPX/bangtail-divide-imba-epic.gpx', 'r')
-    # gpx_file = open('../data/GPX/raggeds-shuttle.gpx', 'r')
-    gpx_file = open(filename, 'r')
-    # gpx_file = open('../data/GPX/the-whole-enchilada.gpx', 'r')
-    raw_text = gpx_file.read()
-    regex_id = re.search(r'https://www.mtbproject.com/trail/(\d+)',raw_text)
-    trail_id = int(regex_id.group(1))
-    # print(trail_id)
-
-    gpx_file.close()
-    # print(raw_text)
-    # gpx_file = open('../data/GPX/bangtail-divide-imba-epic.gpx', 'r')
-    gpx_file = open(filename, 'r')
-    gpx = gpxpy.parse(gpx_file)
-
-    gpx_file.close()
+    with open(filename, 'r') as gpx_file:
+        # gpx_file = open('../data/GPX/the-whole-enchilada.gpx', 'r')
+        raw_text = gpx_file.read()
+        regex_id = re.search(r'https://www.mtbproject.com/trail/(\d+)',raw_text)
+        trail_id = int(regex_id.group(1))
+    with open(filename, 'r') as gpx_file:
+        gpx = gpxpy.parse(gpx_file)
 
     data = []
     counter = 1

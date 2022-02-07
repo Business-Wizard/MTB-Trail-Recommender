@@ -19,25 +19,23 @@ def trails():
     
 @app.route('/region', methods=['GET','POST'])
 def region():
-    region = request.args.get('region')    
+    region = request.args.get('region')
     regions = get_regions()
-    
+
     try:
-        region_name = regions[region]    
+        region_name = regions[region]
     except:
-        return region + " is not a valid region"
-             
+        return f'{region} is not a valid region'
+
     trails = get_trails_by_region(region)        
-    
+
     region_options = convert_regions_to_select_options(regions)
     return render_template('region.html',region_name=region_name, regions=region_options, trails=trails)
 
 @app.route('/get_trails')
 def get_trails():
-    region = request.args.get('region')    
-    if region:       
-        trails = get_trails_by_region(region)        
-        # print(trails)
+    if region := request.args.get('region'):
+        trails = get_trails_by_region(region)
     return jsonify(trails)
 
 @app.route('/recommendations', methods=['GET','POST'])
@@ -55,10 +53,7 @@ def recommendations():
     return render_template('recommendations.html',original_trail=original_trail, recommended_trails=recommended_trails, region_name=region_name)
 
 def convert_regions_to_select_options(regions):
-    options = []    
-    for key,value in regions.items():
-        options.append({'value':key, 'text': value})
-    return options
+    return [{'value':key, 'text': value} for key,value in regions.items()]
 
 
 if __name__ == '__main__':

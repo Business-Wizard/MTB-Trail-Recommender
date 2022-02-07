@@ -24,8 +24,7 @@ def get_distance(la1, lo1, la2, lo2):
     a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
     c = 2 * atan2(sqrt(a), sqrt(1 - a))
 
-    distance = R * c
-    return distance
+    return R * c
 
 
 # Parsing an existing file:

@@ -9,8 +9,14 @@ with open('../data/X.pkl', 'rb') as f:
 all_df = pd.read_pickle('../data/df.pkl')
 
 def get_regions():    
-    regions = {"denver": "Denver", "moab": "Moab","crested_butte": "Crested Butte", "marin_county": "Marin County", "sedona":"Sedona","park_city":"Park City"}
-    return regions
+    return {
+        "denver": "Denver",
+        "moab": "Moab",
+        "crested_butte": "Crested Butte",
+        "marin_county": "Marin County",
+        "sedona": "Sedona",
+        "park_city": "Park City",
+    }
 
 def get_trails_by_region(region):
     # use region to get trails
@@ -24,8 +30,7 @@ def get_trails_by_region(region):
     return trails
 
 def get_recommended_trails_by_trail(source_trail):
-    trails = [{"id": "1", "name": "Trail Rec 1"},{"id": "2", "name": "Trail Rec 2"}]
-    return trails
+    return [{"id": "1", "name": "Trail Rec 1"},{"id": "2", "name": "Trail Rec 2"}]
 
 def get_recommended_trails_by_region_and_trail(dst_region, source_trail_id, n):
     return get_trail_recommendations(source_trail_id, X, n, region_name=dst_region)    
@@ -60,7 +65,27 @@ def get_trail_recommendations(trail_id, X, n=5, region_name=None):
     return convert_data(total)
 
 def convert_data(df):
-    trails = []
-    for _, row in df.iterrows():        
-        trails.append({"id":row['id'],"name":row['name'],"type":row['type'],"summary":row['summary'],"difficulty":row['difficulty'],"stars":row['stars'],"starVotes":row['starVotes'],"location":row['location'],"url":row['url'],"length":row['length'],"ascent":row['ascent'],"descent":row['descent'],"high":row['high'],"low":row['low'],"longitude":row['longitude'],"latitude":row['latitude'],"max_grade":row['max_grade'],"climb_desc":row['climb_desc'],"return_start":row['return_start']})
-    return trails
+    return [
+        {
+            "id": row['id'],
+            "name": row['name'],
+            "type": row['type'],
+            "summary": row['summary'],
+            "difficulty": row['difficulty'],
+            "stars": row['stars'],
+            "starVotes": row['starVotes'],
+            "location": row['location'],
+            "url": row['url'],
+            "length": row['length'],
+            "ascent": row['ascent'],
+            "descent": row['descent'],
+            "high": row['high'],
+            "low": row['low'],
+            "longitude": row['longitude'],
+            "latitude": row['latitude'],
+            "max_grade": row['max_grade'],
+            "climb_desc": row['climb_desc'],
+            "return_start": row['return_start'],
+        }
+        for _, row in df.iterrows()
+    ]

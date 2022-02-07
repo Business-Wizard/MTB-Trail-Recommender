@@ -34,8 +34,7 @@ def get_trail_recommendations(trail_name, X, n=5):
     ordered_df = all_df.loc[rec_index]
     rec_df = ordered_df.head(n)
     orig_row = all_df.loc[[index]].rename(lambda x: 'original')
-    total = pd.concat((orig_row,rec_df))
-    return total
+    return pd.concat((orig_row,rec_df))
 
 if __name__ == "__main__":
 

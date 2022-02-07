@@ -105,7 +105,7 @@ if __name__ == "__main__":
     for val in crested_butte_df['id']:
         print(f'mtbproject.com/trail/{val}')
 
-    text = " ".join(review for review in all_df.summary)
+    text = " ".join(all_df.summary)
     print("There are {} words in the combination of all review."
           .format(len(text)))
 
